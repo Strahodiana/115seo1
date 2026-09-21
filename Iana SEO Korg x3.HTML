@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iana Korg X3 - Experimental Music & Synthesizers</title>
+    <style>
+        /* CSS 變數與基礎重設 */
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-color: #52a8ab;
+            --border-color: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 頂部導覽列 */
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        /* 主視覺區 (Hero) */
+        .hero {
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            color: #ffffff;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 主要內容佈局 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* 文章區塊 */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .post-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content {
+            padding: 2rem;
+        }
+
+        .post-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-excerpt {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-more {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .btn-more:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        /* 側邊欄區塊 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .widget {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            color: var(--text-color);
+            border-radius: 4px;
+        }
+
+        .search-box button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .widget-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .widget-list li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .tag {
+            background-color: var(--bg-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導覽 -->
+    <header>
+        <div class="nav-container">
+            <div class="logo"><a href="#"><div style="font-family:'Times New Roman', Times, serif"></div>Iana Korg X3</a></div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">首頁</a></li>
+                        <li><a href="https://ianakorgx3.blogspot.com/" target="_blank">合成器</a></li>
+                    <li><a href="#">關於我</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主視覺 Banner -->
+    <section class="hero">
+        <h1>Iana</h1>
+        <p>探索實驗音樂與合成器的無限可能吧!</p>
+    </section>
+
+    <!-- 主要內容區 -->
+    <div class="container">
+        
+        <!-- 左側：文章列表 -->
+        <main class="main-content">
+            <article class="post-card">
+    <div class="post-content">
+        <div class="post-meta">2026 年 9 月 13 日 • 分類: Synthesizer</div>
+        <h2 class="post-title">Iana September 13, 2026 synthesizer</h2>
+        
+        <!-- 使用 details 標籤製作摺疊點擊效果 -->
+        <details>
+            <!-- summary 放平常看得到的預覽簡介 -->
+            <summary class="btn-more" style="cursor: pointer; list-style: none;">點擊點開/收合 完整文章</summary>
+            
+            <!-- 這裡放隱藏的完整內文，點擊後會自動彈出來 -->
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #333;">
+               
+                <p>Korg X3 Korg X3 是 Korg 公司於 1993 年推出的經典 61 鍵音樂工作站（Music Workstation）合成器。它承襲了當代旗艦型號 M1 與 T 系列的輝穩定血統，並搭載了 Korg 著名的 AI² 綜合合成系統（Advanced Integrated Synthesis System）。在聲音表現上，X3 內建了高達 6MB 的唯讀記憶體（ROM），內含 340 種類型的多重取樣波形與 164 種鼓組波形，能提供極具 90 年代復古質感的鋼琴、弦樂、管樂及豐富的電子環境音效。它具備 32 個複音數（Polyphony） 與 16 軌的內建編曲器（Sequencer），最大可記錄 32,000 個音符，在當時是音樂人進行小規模編曲與動態舞台演出的高性價比首選。此外，X3 還配備了雙數位多重效果處理器，提供 47 種高品質效果。其機身配有 3.5 吋磁碟機（FDD），方便音樂人儲存與載入 MIDI 檔案，至今仍是實驗音樂與復古電子樂愛好者爭相收藏的經典硬體。 是一款經典的合成器，擁有豐富的音樂工作站功能。在實驗音樂中，我們常常透過調製濾波器（Filter）與 LFO 來創造出獨一無二的環境氛圍聲音...</p>
+            </div>
+        </details>
+    </div>
+</article>
+            <article class="post-card">
+                <div class="post-content">
+                    <div class="post-meta">2026 年 9 月 13 日 • 分類: Synthesizer</div>
+                    <h2 class="post-title"><a href="#">Iana September 13, 2026 synthesizer</a></h2>
+                    <p class="post-excerpt">這是關於最新實驗音樂合成器的音色調製與硬體操作心得。我們深入探討了如何利用 CSS3 網頁硬體加速概念引申至音樂訊號的流暢處理體驗...</p>
+                    <a href="#" class="btn-more">閱讀全文</a>
+                </div>
+            </article>
+
+           <hr>
+           <table>
+            <style>
+        table{
+            border: 8px solid rgb(118, 167, 170)
+        }
+        th,td{
+            border: 5px solid rgb(41, 25, 28);
+            text-align:center
+        }
+        .one{
+            empty-cells: hide
+        }
+        .two{
+            border-spacing: 15px
+        }
+        .three{
+            border-collapse: collapse;
+        }
+        .four{
+            border-collapse: separate;
+        }
+    </style>
+        <caption>Taiwan</caption>
+        <thead>
+            <tr><th>East</th><th>North</th><th>South</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Yilan</td><td>Keelung</td><td>Chiayi</td></tr>
+            <tr><td>Hualien</td><td>New Taipei</td><td>Tainan</td></tr>
+            <tr><td>Taitung</td><td>Taipei</td><td>Kaohsiung</td></tr>
+        </tbody>
+    </table>
+            <figure>
+        <img src="https://i.ebayimg.com/images/g/avEAAOSwqdhj7y7m/s-l1200.jpg" alt="cute raccoon" title="Raccoon" width="200">
+        <br>
+        <figcaption>Korg X3</figcaption>
+        </figure>
+     <hr>
+        <iframe src="https://en.wikipedia.org/wiki/National_Chung_Cheng_University" width="640" height="480"></iframe>
+        <hr>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZYxMauv0Fzs?si=NLOvPl_dSvpW38pN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>?</iframe>
+        <hr>
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2193.1760374976225!2d-4.9948307!3d56.654031599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4889306d37051dab%3A0x99cdd4f0926f7b3c!2sHidden%20Valley!5e0!3m2!1szh-TW!2stw!4v1789972804041!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>"
+    </main>
+        <!-- 右側：側邊欄 -->
+        <aside class="sidebar">
+            
+            <!-- 搜尋網誌 -->
+            <div class="widget">
+                <h3 class="widget-title">搜尋此站</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="輸入關鍵字...">
+                    <button>搜尋</button>
+                </div>
+            </div>
+
+            <!-- 熱門標籤 -->
+            <div class="widget">
+                <h3 class="widget-title">文章分類</h3>
+                <ul class="widget-list">
+                    <li><a href="#">Synthesizer</a> <span class="tag">2</span></li>
+                    <li><a href="#">Web Design</a> <span class="tag">1</span></li>
+                </ul>
+            </div>
+
+            <!-- 網誌存檔 -->
+            <div class="widget">
+                <h3 class="widget-title">網誌存檔</h3>
+                <ul class="widget-list">
+                    <li><a href="#">2026 年九月</a> <span>(2)</span></li>
+                    <li><a href="#">2026 ?</a> <span>(1)</span></li>
+                </ul>
+            </div>
+
+        </aside>
+
+
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+           <p>你的長髮為何不留 你幹麼會學懂喝酒你那個男朋友 酒量也算一流 聊個一整夜只怕不夠你為甚麼跟他鬧酒 你莫非要借酒澆愁你那個女朋友 到底還有沒有 搞不好我們四個人 去旅遊原來一回頭 原來才顯出你溫柔 我當時愛得不夠原來只能夠做朋友 從前快樂沒變哀愁原來在那關頭 全因捨得分手 你說是否荒謬 我們比從前看起來更熟改天你母親搞賀壽 我帶女友出來走走 你就知我理由 不外乎太羞如果要一起去旅遊 去歐洲原來一回頭 原來才顯出你溫柔 我當時愛得不夠原來只能夠做朋友 從前快樂沒變哀愁原來在那關頭 全因捨得分手 你說是否荒謬 我們比從前看起來更熟那天澎一聲關門 就走 很想問 你有沒有眼淚 想流你以為 你的魅力大得足夠 少有 我們像在迎新懷舊原來一回頭 原來才顯出你溫柔 我當時愛得不夠原來只能夠做朋友 從前快樂沒變哀愁原來在那關頭 全因捨得分手還去不去歐洲 四個人不許酸溜溜</p>
+        <p>Copyright © 2026 Iana Korg X3 | 115 SEO Practice</p>
+    </footer>
+
+</body>
+</html>
